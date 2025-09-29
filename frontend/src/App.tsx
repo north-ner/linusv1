@@ -164,8 +164,8 @@ export default function App() {
             <h1 className="text-5xl md:text-6xl font-extrabold font-sans tracking-tight mb-0 leading-none text-amber-300">
               Taskger
             </h1>
-            <p className="font-medium italic mt-0 mb-0 leading-none text-amber-100">
-              just a task manager
+            <p className="font-medium italic mt-3 mb-0 leading-none text-amber-100">
+              just a task manager by @devbrath.singh.danu
             </p>
           </div>
           {/* Add Task Button */}
