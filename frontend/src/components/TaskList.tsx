@@ -50,7 +50,8 @@ export default function TaskList({
 
   return (
     <div>
-      <ul className="space-y-6">
+      {/* INCREASE SPACE BETWEEN TASKS */}
+      <ul className="space-y-8">
         {tasks.map((task) => (
           <li
             key={task.id}
@@ -59,18 +60,11 @@ export default function TaskList({
             {/* Left section: Task info */}
             <div className="flex-1 min-w-0">
               {/* Title and badge in one row, spaced */}
-              <div className="flex gap-3 items-center mb-2">
-                <span className="text-2xl font-extrabold text-gray-800 truncate">{task.title}</span>
-                
-              </div>
-              {/* Description under title+badge */}
-              <div className="text-gray-600 mb-2 break-words">{task.description}</div>
-              {/* Due date */}
-              <div className="text-xs text-gray-400">
+              <h3 className="text-2xl md:text-3xl font-extrabold mb-2 text-gray-900">{task.title}</h3>
+              <p className="mb-2 text-gray-700">{task.description}</p>
+              <div className="flex items-center gap-4">
                 {task.dueDate && (
-                  <span>
-                    Due: <span className="font-bold text-gray-700">{task.dueDate}</span>
-                  </span>
+                  <span className="text-sm text-gray-500">Due: {task.dueDate}</span>
                 )}
               </div>
             </div>
