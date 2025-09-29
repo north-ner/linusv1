@@ -1,30 +1,23 @@
 import axios from "axios";
-
-// Adjust API_BASE_URL if your backend runs elsewhere
-const API_BASE_URL = "http://localhost:8080/api/tasks";
-
-export type TaskStatus = "TODO" | "IN_PROGRESS" | "DONE";
+import { API_BASE_URL } from "../config";
 
 export interface Task {
   id: number;
   title: string;
   description?: string;
-  status: TaskStatus;
-  dueDate?: string; // ISO string
+  status: "TODO" | "IN_PROGRESS" | "DONE";
+  dueDate?: string;
 }
-
 export interface TaskFormData {
   title: string;
   description?: string;
-  status: TaskStatus;
+  status: "TODO" | "IN_PROGRESS" | "DONE";
   dueDate?: string;
 }
 
-export const getTasks = () => axios.get<Task[]>(API_BASE_URL);
+const BASE = `${API_BASE_URL}/api/tasks`;
 
-export const createTask = (task: TaskFormData) => axios.post<Task>(API_BASE_URL, task);
-
-export const updateTask = (id: number, task: TaskFormData) =>
-  axios.put<Task>(`${API_BASE_URL}/${id}`, task);
-
-export const deleteTask = (id: number) => axios.delete(`${API_BASE_URL}/${id}`);
+export const getTasks = () => axios.get<Task[]>(BASE);
+export const createTask = (task: TaskFormData) => axios.post<Task>(BASE, task);
+export const updateTask = (id: number, task: TaskFormData) => axios.put<Task>(`${BASE}/${id}`, task);
+export const deleteTask = (id: number) => axios.delete(`${BASE}/${id}`);
