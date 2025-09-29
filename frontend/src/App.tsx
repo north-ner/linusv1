@@ -155,19 +155,31 @@ export default function App() {
   }, [searchTerm, filterStatus, sortBy, tasks.length]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 pb-10">
-      {/* HEADER */}
-      <header className="flex flex-col items-center justify-center bg-gradient-to-r from-blue-700 to-blue-500 text-white shadow-lg px-8 py-16 rounded-b-3xl mb-20">
-        <span className="text-8xl md:text-9xl font-extrabold font-sans tracking-tight drop-shadow-2xl leading-tight mb-6">
-          Taskger
-        </span>
-        <button
-          className="bg-white text-blue-700 font-bold px-10 py-4 rounded-2xl shadow-xl hover:bg-blue-50 hover:text-blue-900 transition text-2xl mt-4"
-          onClick={() => setShowAddModal(true)}
-        >
-          + Add Task
-        </button>
+<div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 pb-10">
+  {/* HEADER */}
+      <header className="bg-gradient-to-r from-sky-800 to-blue-900 shadow-lg px-8 py-12 rounded-b-3xl mb-12">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          {/* Title & Tagline */}
+          <div className="flex flex-col">
+            <h1 className="text-5xl md:text-6xl font-extrabold font-sans tracking-tight mb-0 leading-none text-amber-300">
+              Taskger
+            </h1>
+            <p className="font-medium italic mt-0 mb-0 leading-none text-amber-100">
+              just a task manager
+            </p>
+          </div>
+          {/* Add Task Button */}
+          <div>
+            <button
+              className="bg-amber-400 text-sky-900 font-semibold px-8 py-3 rounded-2xl shadow-lg hover:bg-amber-300 hover:text-blue-900 transition-all text-xl"
+              onClick={() => setShowAddModal(true)}
+            >
+              + Add Task
+            </button>
+          </div>
+        </div>
       </header>
+
 
       {toast && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
@@ -177,7 +189,7 @@ export default function App() {
 
       {/* ADD TASK MODAL */}
       {showAddModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/70 backdrop-blur-md">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/80 backdrop-blur-md">
           <div className="relative bg-white p-10 rounded-3xl shadow-2xl w-full max-w-lg border-2 border-blue-400 mx-4">
             <button
               className="absolute top-4 right-4 text-3xl text-gray-400 hover:text-blue-700 focus:outline-none"
