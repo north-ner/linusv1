@@ -32,8 +32,6 @@ export default function App() {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-
-  // Toast state
   const [toast, setToast] = useState<{ message: string; type?: "success" | "error" | "info" } | null>(null);
 
   const showToast = (message: string, type: "success" | "error" | "info" = "info") => {
@@ -157,13 +155,14 @@ export default function App() {
   }, [searchTerm, filterStatus, sortBy, tasks.length]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-50">
-      <header className="flex items-center justify-between bg-gradient-to-r from-blue-700 to-blue-500 text-white shadow-lg px-8 py-12 rounded-b-2xl mb-12">
-        <span className="text-7xl md:text-8xl font-extrabold font-sans tracking-tight drop-shadow-lg leading-tight">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 pb-10">
+      {/* HEADER */}
+      <header className="flex flex-col items-center justify-center bg-gradient-to-r from-blue-700 to-blue-500 text-white shadow-lg px-8 py-16 rounded-b-3xl mb-20">
+        <span className="text-8xl md:text-9xl font-extrabold font-sans tracking-tight drop-shadow-2xl leading-tight mb-6">
           Taskger
         </span>
         <button
-          className="bg-white text-blue-700 font-bold px-8 py-3 rounded-xl shadow hover:bg-blue-50 hover:text-blue-900 transition text-lg"
+          className="bg-white text-blue-700 font-bold px-10 py-4 rounded-2xl shadow-xl hover:bg-blue-50 hover:text-blue-900 transition text-2xl mt-4"
           onClick={() => setShowAddModal(true)}
         >
           + Add Task
@@ -175,11 +174,18 @@ export default function App() {
           <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
         </div>
       )}
-  
-      {/* Add Task Modal */}
+
+      {/* ADD TASK MODAL */}
       {showAddModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/60 backdrop-blur-sm">
-          <div className="bg-white p-0 rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl border-2 border-blue-500 mx-4">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/70 backdrop-blur-md">
+          <div className="relative bg-white p-10 rounded-3xl shadow-2xl w-full max-w-lg border-2 border-blue-400 mx-4">
+            <button
+              className="absolute top-4 right-4 text-3xl text-gray-400 hover:text-blue-700 focus:outline-none"
+              onClick={() => setShowAddModal(false)}
+              aria-label="Close modal"
+            >
+              ×
+            </button>
             <TaskForm
               onSubmit={handleAddTask}
               loading={loading}
@@ -191,24 +197,25 @@ export default function App() {
         </div>
       )}
 
-      <main className="max-w-3xl mx-auto px-2 md:px-0 pb-16">
+      {/* MAIN CONTENT */}
+      <main className="max-w-3xl mx-auto px-4 md:px-0 pb-16">
         {/* Controls */}
-        <div className="flex flex-col md:flex-row md:justify-end gap-6 mb-10">
-          <div className="flex flex-col md:flex-row gap-4 md:items-end w-full md:w-auto">
+        <div className="flex flex-col md:flex-row md:justify-end gap-8 mb-16">
+          <div className="flex flex-col md:flex-row gap-6 md:items-end w-full md:w-auto">
             <div>
-              <label className="block text-sm font-semibold mb-1 text-gray-700">Search:</label>
+              <label className="block text-base font-semibold mb-2 text-gray-700">Search:</label>
               <input
                 type="text"
-                className="border px-4 py-2 rounded-lg w-52 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                placeholder="Search title or description"
                 value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full border-2 border-blue-200 rounded-xl px-6 py-3 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                placeholder="Search tasks..."
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold mb-1 text-gray-700">Status:</label>
+              <label className="block text-base font-semibold mb-2 text-gray-700">Status:</label>
               <select
-                className="border px-4 py-2 rounded-lg min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-300"
+                className="border-2 border-blue-200 px-6 py-3 rounded-xl min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-300"
                 value={filterStatus}
                 onChange={e => setFilterStatus(e.target.value as TaskStatus | "ALL")}
               >
@@ -220,9 +227,9 @@ export default function App() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-semibold mb-1 text-gray-700">Sort:</label>
+              <label className="block text-base font-semibold mb-2 text-gray-700">Sort:</label>
               <select
-                className="border px-4 py-2 rounded-lg min-w-[160px] focus:outline-none focus:ring-2 focus:ring-blue-300"
+                className="border-2 border-blue-200 px-6 py-3 rounded-xl min-w-[160px] focus:outline-none focus:ring-2 focus:ring-blue-300"
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value)}
               >
@@ -233,7 +240,7 @@ export default function App() {
             </div>
           </div>
         </div>
-
+        {/* Task List */}
         <TaskList
           tasks={paginatedTasks}
           onDelete={handleDeleteTask}
@@ -244,21 +251,20 @@ export default function App() {
           onStatusChange={handleStatusChange}
           statusUpdatingId={statusUpdatingId}
         />
-
         {/* Pagination */}
-        <div className="flex justify-center gap-2 mt-10">
+        <div className="flex justify-center items-center gap-6 mt-12">
           <button
-            className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold disabled:opacity-50"
+            className="px-6 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-lg disabled:opacity-50"
             onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
             disabled={currentPage === 1}
           >
             Prev
           </button>
-          <span className="py-2 px-4 text-lg font-semibold">
+          <span className="py-2 px-4 text-xl font-semibold">
             Page {currentPage} of {totalPages}
           </span>
           <button
-            className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold disabled:opacity-50"
+            className="px-6 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-lg disabled:opacity-50"
             onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
           >
